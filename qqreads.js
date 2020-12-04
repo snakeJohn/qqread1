@@ -12,6 +12,7 @@
 11.29 更新 支持action.默认每天21点到21点20通知
 12.2 修复打卡问题
 12.3 缩短运行时间，由于企鹅读书版本更新.请手动进去看一次书
+12.3 调整推送时间为12点和24点左右
 ⚠️cookie获取方法：
 进 https://m.q.qq.com/a/s/d3eacc70120b9a37e46bad408c0c4c2a  点我的   获取cookie
 进一本书 看 10秒以下 然后退出，获取阅读时长cookie，看书一定不能超过10秒
@@ -46,12 +47,12 @@ var config='';
 var COOKIES_SPLIT='\n'  //自定义多cookie之间连接的分隔符，默认为\n换行分割，不熟悉的不要改动和配置，为了兼容本地node执行
 
 const logs = 0;   //0为关闭日志，1为开启
-const notifyInterval=0
+const notifyInterval=3
 //0为关闭通知，1为所有通知，2为宝箱领取成功通知，3为宝箱每15次通知一次
 
 const dd=1//单次任务延迟,默认1秒
 const TIME=30//单次时长上传限制，默认5分钟
-const maxtime=20//每日上传时长限制，默认20小时
+const maxtime=12//每日上传时长限制，默认12小时
 const wktimess=1200//周奖励领取标准，默认1200分钟
 
 
@@ -156,8 +157,8 @@ qqreadconfig();//时长查询
 else if (i==1)
 qqreadtask();//任务列表
 		    
-else if (i==2)
-qqreadpick();//领周时长奖励
+else if (i==2&&config.data.pageParams.todayReadSeconds/3600<=maxtime)
+qqreadtime();//上传时长
 
 else if (i==3&&task.data.taskList[1].doneFlag==0)
 qqreadssr1();//阅读金币1		    
@@ -176,9 +177,9 @@ qqreaddayread();//阅读任务
 else if (i==7&&task.data.taskList[1].doneFlag==0)
 qqreadssr2();//阅读金币2
 
-else if (i==8&&config.data.pageParams.todayReadSeconds/3600<=maxtime)
-qqreadtime();//上传时长
-
+else if (i==8)
+qqreadpick();//领周时长奖励	    
+		    
 else if (i==9&&task.data.taskList[3].doneFlag==0)
 qqreadvideo();//视频任务		    
 		    
@@ -628,7 +629,7 @@ function showmsg() {
 tz += `\n\n========= 脚本执行-北京时间(UTC+8)：${new Date(new Date().getTime() + 8 * 60 * 60 * 1000).toLocaleString()} \n\n`;
 	
 let d = new Date(new Date().getTime() + 8 * 60 * 60 * 1000);
-if (d.getHours()==21 && d.getMinutes()<=20 ) {
+if (d.getHours()==12 && d.getMinutes()<=20 ||d.getHours()==23 && d.getMinutes()>=40 ) {
          notify.sendNotify(jsname,kz)
  }
 	
