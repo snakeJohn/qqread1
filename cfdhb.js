@@ -1,5 +1,6 @@
 /**
  *
+ cron 0 0 * * * cfdhb.js
  Name:财富岛提现 (修改自https://gayhub.lensu.workers.dev/pxylen/dog_jd/master/jx_cfdtx.js)
  *
  **/
