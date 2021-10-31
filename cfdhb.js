@@ -1,9 +1,26 @@
-/**
- *
- cron 0 0 * * * cfdhb.js
- Name:财富岛提现 (修改自https://gayhub.lensu.workers.dev/pxylen/dog_jd/master/jx_cfdtx.js)
- *
- **/
+/*
+京喜财富岛提现
+cron 0 0 * * * cfdhb.js
+更新时间：2021-7-13
+活动入口：京喜APP-我的-京喜财富岛提现
+
+已支持IOS双京东账号,Node.js支持N个京东账号
+脚本兼容: QuantumultX, Surge, Loon, JSBox, Node.js
+============Quantumultx===============
+[task_local]
+#京喜财富岛提现
+0 0 * * * https://raw.githubusercontent.com/snakeJohn/qqread1/main/cfdhb.js, tag=京喜财富岛提现, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jxcfd.png, enabled=true
+
+================Loon==============
+[Script]
+cron "0 0 * * *" script-path=https://raw.githubusercontent.com/snakeJohn/qqread1/main/cfdhb.js,tag=京喜财富岛提现
+
+===============Surge=================
+京喜财富岛提现 = type=cron,cronexp="0 0 * * *",wake-system=1,timeout=3600,script-path=https://raw.githubusercontent.com/snakeJohn/qqread1/main/cfdhb.js
+
+============小火箭=========
+京喜财富岛提现 = type=cron,script-path=https://raw.githubusercontent.com/snakeJohn/qqread1/main/cfdhb.js, cronexpr="0 0 * * *", timeout=3600, enable=true
+ */
 
 const $ = new Env("京喜红包提现");
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
