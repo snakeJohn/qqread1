@@ -1,6 +1,6 @@
 /**
  *
- Name:财富岛提现 (修改自https://gayhub.lensu.workers.dev/pxylen/dog_jd/master/jx_cfdtx.js)
+ Name:提现 (修改自https://gayhub.lensu.workers.dev/pxylen/dog_jd/master/jx_cfdtx.js)
  *
  **/
 
