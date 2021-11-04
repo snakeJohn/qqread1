@@ -1,6 +1,6 @@
 /**
  *
- Name:财富岛提现 (修改自https://gayhub.lensu.workers.dev/pxylen/dog_jd/master/jx_cfdtx.js)
+ Name:财富提现 (修改自https://gayhub.lensu.workers.dev/pxylen/dog_jd/master/jx_cfdtx.js)
  *
  **/
 
@@ -41,9 +41,10 @@ if ($.isNode()) {
         }
     }
     if (allMessage) {
-        if ($.isNode()) await notify.sendNotify(`${$.name}`, `${allMessage}`);
+        if ($.isNode()) await notify.sendNotify(`${allMessage}`);
     }
-})()
+    }
+)()
     .catch((e) => $.logErr(e))
     .finally(() => $.done());
 
@@ -103,12 +104,20 @@ function taskUrl(function_path, body) {
 }
 
 function showMsg() {
-    return new Promise(resolve => {
-        let result = $.res.iRet === 0 || $.res.sErrMsg === '';   
-        message += result ? `提现红包成功：获得100元` : `未提现成功`;
-  //      message +=`${$.UserName} 提现红包成功：获得100元`;
-       notify.sendNotify(`${$.UserName}`, `${message}`);     
-       console.log(`【京东账号${$.index}】${$.UserName}\n${message}`);
+    return new Promise(resolve => {       
+        let result = $.res.iRet === 0 || $.res.sErrMsg === '';
+        if(result){
+        	message += `${$.UserName} 提现红包成功：获得100元`;
+        	console.log(`【京东账号${$.index}】${$.UserName}\n${message}`);
+        	allMessage += message;
+        } else{
+        	console.log(`${$.UserName} 提现失败`)
+        }
+        // message += result ? `${$.UserName} 提现红包成功：获得100元` : ;
+  //      message +=`${$.UserName} 提现红包成功：获得100元`;   
+       
+       
+      // notify.sendNotify(`${$.name}`, `${message}`);  
         resolve()
     })
 }
