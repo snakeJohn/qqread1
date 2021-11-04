@@ -1,12 +1,13 @@
 /**
  *
- Name:提现 (修改自https://gayhub.lensu.workers.dev/pxylen/dog_jd/master/jx_cfdtx.js)
+ Name:财富岛提现 (修改自https://gayhub.lensu.workers.dev/pxylen/dog_jd/master/jx_cfdtx.js)
  *
  **/
 
 const $ = new Env("京喜红包提现");
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 $.CryptoJS = $.isNode() ? require('crypto-js') : CryptoJS;
+const notify = $.isNode() ? require('./sendNotify') : '';
 const JD_API_HOST = "https://m.jingxi.com/";
 let cookiesArr = [], cookie = '', token;
 $.appId = 10028;
@@ -35,6 +36,7 @@ if ($.isNode()) {
             token = await getJxToken();
             message = '';
             console.log(`\n******开始【京东账号${$.index}】${$.UserName}*********\n`);
+      
             await cfdhb();
         }
     }
@@ -70,7 +72,7 @@ function cashOut() {
                         $.logErr(`❌ 账号${$.index} API请求失败，请检查网络后重试\n data: ${JSON.stringify(err, null, 2)}`);
                     } else {
                         data = $.toObj(data);
-                    }
+  }
                 } catch (e) {
                     $.logErr(`======== 账号 ${$.index} ========\nerror:${e}\ndata: ${resp && resp.body}`)
                 } finally {
@@ -102,12 +104,10 @@ function taskUrl(function_path, body) {
 
 function showMsg() {
     return new Promise(resolve => {
-        let result = $.res.iRet === 0 || $.res.sErrMsg === '';
+        let result = $.res.iRet === 0 || $.res.sErrMsg === '';   
         message += result ? `提现红包成功：获得100元` : `未提现成功`;
-        if(result) {
-            allMessage += `【京东账号${$.index}】${$.UserName}\n${message}${$.index !== cookiesArr.length ? '\n\n' : '\n\n'}`;
-            notify.sendNotify(`${$.name}`, `${allMessage}`);
-        }
+  //      message +=`${$.UserName} 提现红包成功：获得100元`;
+       notify.sendNotify(`${$.UserName}`, `${message}`);     
        console.log(`【京东账号${$.index}】${$.UserName}\n${message}`);
         resolve()
     })
